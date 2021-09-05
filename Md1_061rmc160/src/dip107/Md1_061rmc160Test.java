@@ -13,7 +13,6 @@ import org.junit.jupiter.params.provider.CsvFileSource;
 public class Md1_061rmc160Test {
 
     private ByteArrayOutputStream byteArrayOutputStream;
-    private PrintStream console;
 
     @Test
     public void shouldPrintAplnrVardsUzvardsGrupasNr() throws Exception {
@@ -21,37 +20,33 @@ public class Md1_061rmc160Test {
         runTest(getSimulatedUserInput("1", "1"), "dip107.Md1_061rmc160");
         String[] output =
                 byteArrayOutputStream.toString().split(System.getProperty("line.separator"));
-        assertEquals(output[0], "061RMC160 Oskars Grauzis 4");
-        assertEquals(output[output.length - 1], "red");
+        assertEquals("061RMC160 Oskars Grauzis 4", output[0]);
+        assertEquals("red", output[output.length - 1]);
     }
 
+    /* oriģināli es liku ka 3 iespējas lietotājam dotas lai ievadītu pareiza formāta datus ja kļūdījās!!!
     @Test
     public void shouldRetryOnWrongInput() throws Exception {
+        // String classpathStr = System.getProperty("java.class.path");
+        // System.out.print(classpathStr);
+
         byteArrayOutputStream = new ByteArrayOutputStream();
         runTest(getSimulatedUserInput("a", "1", "1"), "dip107.Md1_061rmc160");
         String[] output =
                 byteArrayOutputStream.toString().split(System.getProperty("line.separator"));
         assertEquals(output[1], "x=");
         assertEquals(output[output.length - 1], "red");
-    }
+    }*/
 
     // region valTests
     @ParameterizedTest
-    @CsvFileSource(resources = "/positive-tests.csv", numLinesToSkip = 1)
-    void shouldPassAllColorMappingTests(String... inputs) throws Exception {
-        String lastOne = inputs[inputs.length - 1];
+    @CsvFileSource(resources = "positive-tests.csv", numLinesToSkip = 1)
+    void shouldPassAllColorMappingTests(String x, String y, String expect) throws Exception {
         byteArrayOutputStream = new ByteArrayOutputStream();
-        int cnt = 1;
-        String[] varargsMinusLastOne = new String[inputs.length - 1];
-        for (String s : inputs)
-            if (cnt != inputs.length) {
-                varargsMinusLastOne[cnt - 1] = s;
-                cnt++;
-            }
-        runTest(getSimulatedUserInput(varargsMinusLastOne), "dip107.Md1_061rmc160");
+        runTest(getSimulatedUserInput(x, y), "dip107.Md1_061rmc160");
         String[] output =
                 byteArrayOutputStream.toString().split(System.getProperty("line.separator"));
-        assertEquals(output[output.length - 1], lastOne);
+        assertEquals(expect, output[output.length - 1]);
     }
 
     // endregion

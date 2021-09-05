@@ -23,20 +23,25 @@ public class Md1_061rmc160 {
 
     // no passing by reference possible in Java at all?? aww...
     private static float getInput(Scanner sc, PrintStream outputStream, char varName) {
-        for (int i = 0; i < 4; i++) {
-            outputStream.print(varName + "=");
-            // infinity is an invalid value legal float value example for coordinates!
-            if (sc.hasNext("[+-]?[\\d]+([.,]\\d+)*")) {
-                return Float.parseFloat(makeFloatString(sc.next()));
-            } else {
-                sc.next();
-                outputStream.println();
-                outputStream.println("nepareiza formāta ievade! Lūdzu ievadiet reālu skaitli - "
-                        + varName + " koordinātu!");
-                        outputStream.println("Mēģinājums #" + (i + 1) + " no 3");
-            }
+        // oriģināli es liku ka 3 iespējas lietotājam dotas lai ievadītu pareiza formāta datus ja
+        // kļūdījās!!!
+        // for (int i = 0; i < 4; i++) {
+        outputStream.print(varName + "=");
+        // infinity is an invalid value legal float value example for coordinates!
+        if (sc.hasNext("[+-]?[\\d]+([.,]\\d+)*")) {
+            return Float.parseFloat(makeFloatString(sc.next()));
+        } else {
+            sc.next();
+            outputStream.println();
+            outputStream.println("input-output error");
+            system_exit = true;
+            // System.exit(-1);
+            // outputStream.println("nepareiza formāta ievade! Lūdzu ievadiet reālu skaitli - "
+            // + varName + " koordinātu!");
+            // outputStream.println("Mēģinājums #" + (i + 1) + " no 3");
         }
-        System.exit(-1);
+        // }
+        // System.exit(-1);
         // system is exiting.. But the function must have return statement for lint.. therefore
         return -11111111.222222f;
     }
@@ -47,12 +52,22 @@ public class Md1_061rmc160 {
         testableMain(System.in, System.out);
     }
 
-    public static void testableMain(InputStream inputStream, PrintStream outputStream){
+    private static Boolean system_exit = false;
+
+    public static void testableMain(InputStream inputStream, PrintStream outputStream) {
         Scanner sc = new Scanner(inputStream);
         float x = 0, y = 0;
         outputStream.println("061RMC160 Oskars Grauzis 4");
         x = getInput(sc, outputStream, 'x');
+        if (system_exit) {
+            sc.close();
+            return;
+        }
         y = getInput(sc, outputStream, 'y');
+        if (system_exit) {
+            sc.close();
+            return;
+        }
         outputStream.println();
         outputStream.println("result:");
         if ((x >= 1 && x <= 3 || x >= 11 && x <= 13) && y >= 1 && y <= 8)

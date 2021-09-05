@@ -1,0 +1,27 @@
+x, y, soOntillTheLastOneIsExpectedOutputResult
+1, 1, red
+2, 5, red
+12, 3, red
+6, 9, blue
+8, 2, green
+1, 1, red
+3, 2, red
+2.5, 8, red
+1, 8, red
+12, 1, red
+11, 4, red
+13, 5, red
+11.5, 8, red
+4, 8, blue
+3, 9, blue
+10, 10, blue
+7, 7, green
+10, 4, green
+4, 3, white
+-1, 5, white
+10, 7, white
+12, 9, white
+2.5, 8, red
+11.5, 8, red
+1, a, input-output error
+b, -, input-output error
