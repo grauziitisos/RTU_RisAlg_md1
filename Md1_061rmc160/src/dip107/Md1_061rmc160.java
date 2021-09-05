@@ -1,6 +1,8 @@
 
 package dip107;
 
+import java.io.InputStream;
+import java.io.PrintStream;
 import java.text.DecimalFormat;
 import java.text.DecimalFormatSymbols;
 import java.util.Scanner;
@@ -20,17 +22,18 @@ public class Md1_061rmc160 {
     }
 
     // no passing by reference possible in Java at all?? aww...
-    private static float getInput(Scanner sc, char varName) {
+    private static float getInput(Scanner sc, PrintStream outputStream, char varName) {
         for (int i = 0; i < 4; i++) {
-            System.out.print(varName + "=");
+            outputStream.print(varName + "=");
             // infinity is an invalid value legal float value example for coordinates!
             if (sc.hasNext("[+-]?[\\d]+([.,]\\d+)*")) {
                 return Float.parseFloat(makeFloatString(sc.next()));
             } else {
                 sc.next();
-                System.out.println("nepareiza formāta ievade! Lūdzu ievadiet reālu skaitli - "
+                outputStream.println();
+                outputStream.println("nepareiza formāta ievade! Lūdzu ievadiet reālu skaitli - "
                         + varName + " koordinātu!");
-                System.out.println("Mēģinājums #" + (i + 1) + " no 3");
+                        outputStream.println("Mēģinājums #" + (i + 1) + " no 3");
             }
         }
         System.exit(-1);
@@ -41,22 +44,25 @@ public class Md1_061rmc160 {
 
     // region main
     public static void main(String[] args) {
-        Scanner sc = new Scanner(System.in);
+        testableMain(System.in, System.out);
+    }
+
+    public static void testableMain(InputStream inputStream, PrintStream outputStream){
+        Scanner sc = new Scanner(inputStream);
         float x = 0, y = 0;
-        System.out.println("061RMC160 Oskars Grauzis 4");
-        x = getInput(sc, 'x');
-        y = getInput(sc, 'y');
-        System.out.print("y=" + y);
-        System.out.println();
-        System.out.println("result:");
+        outputStream.println("061RMC160 Oskars Grauzis 4");
+        x = getInput(sc, outputStream, 'x');
+        y = getInput(sc, outputStream, 'y');
+        outputStream.println();
+        outputStream.println("result:");
         if ((x >= 1 && x <= 3 || x >= 11 && x <= 13) && y >= 1 && y <= 8)
-            System.out.println("red");
+            outputStream.println("red");
         else if ((x - 7) * (x - 7) + (y - 4) * (y - 4) <= 9)
-            System.out.println("green");
+            outputStream.println("green");
         else if (y >= 8 && y <= x + 6 && y <= 20 - x)
-            System.out.println("blue");
+            outputStream.println("blue");
         else
-            System.out.println("white");
+            outputStream.println("white");
     }
     // endregion
 }
