@@ -69,13 +69,19 @@ public class Md1_061rmc160 {
             return;
         }
         outputStream.println();
+        //Trešais no beigām studenta apliecības numura cipars 1 vai 6:
         outputStream.println("result:");
-        if ((x >= 1 && x <= 3 || x >= 11 && x <= 13) && y >= 1 && y <= 8)
-            outputStream.println("red");
-        else if ((x - 7) * (x - 7) + (y - 4) * (y - 4) <= 9)
+        // sarkana un zaļa (vai sarkana, zaļa un balta) - sarkana; tātad visi neieskaitot
+        if (((x - 4) * (x - 4) + (y - 8) * (y - 8) < 1 && y > 8) ? true
+                // 2. zaļais pusaplis (pa labi)
+                : (x - 8) * (x - 8) + (y - 8) * (y - 8) < 1 && y > 8)
             outputStream.println("green");
-        else if (y >= 8 && y <= x + 6 && y <= 20 - x)
+        // sarkana un zila(vai sarkana, zila un balta) - zila; tātad visi ieskaitot
+        else if (y >= 10 - x ? y >= x - 2 ? y <= 6 : false : false)
             outputStream.println("blue");
+        // balta un sarkana - sarkana; - tātad visi ieskaitot
+        else if (x >= 2 && x <= 10 && y >= 3 && y <= 11)
+            outputStream.println("red");
         else
             outputStream.println("white");
     }

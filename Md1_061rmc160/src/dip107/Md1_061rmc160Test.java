@@ -21,7 +21,6 @@ public class Md1_061rmc160Test {
         String[] output =
                 byteArrayOutputStream.toString().split(System.getProperty("line.separator"));
         assertEquals("061RMC160 Oskars Grauzis 4", output[0]);
-        assertEquals("red", output[output.length - 1]);
     }
 
     /* oriģināli es liku ka 3 iespējas lietotājam dotas lai ievadītu pareiza formāta datus ja kļūdījās!!!
