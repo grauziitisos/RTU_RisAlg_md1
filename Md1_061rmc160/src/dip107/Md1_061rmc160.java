@@ -28,7 +28,7 @@ public class Md1_061rmc160 {
         // for (int i = 0; i < 4; i++) {
         outputStream.print(varName + "=");
         // infinity is an invalid value legal float value example for coordinates!
-        if (sc.hasNext("[+-]?[\\d]+([.,]\\d+)*")) {
+        if (sc.hasNext("[+-]?[\\d]+([\\.,]\\d+)*")) {
             return Float.parseFloat(makeFloatString(sc.next()));
         } else {
             sc.next();
